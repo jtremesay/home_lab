@@ -1,13 +1,13 @@
 resource "kubernetes_manifest" "traefik" {
-    manifest = {
-        apiVersion = "helm.cattle.io/v1"
-        kind: "HelmChartConfig"
-        metadata = {
-            name = "traefik"
-            namespace = "kube-system"
-        }
-        spec = {
-            valuesContent = <<EOF
+  manifest = {
+    apiVersion = "helm.cattle.io/v1"
+    kind : "HelmChartConfig"
+    metadata = {
+      name      = "traefik"
+      namespace = "kube-system"
+    }
+    spec = {
+      valuesContent = <<EOF
 ingressRoute:
   dashboard:
     enabled: true
@@ -36,7 +36,7 @@ certResolvers:
         entryPoint: "web"
     storage: "/data/acme.json"
 EOF
-        }
     }
-  
+  }
+
 }
