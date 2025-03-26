@@ -18,12 +18,18 @@ ingressRoute:
       certResolver: "letsencrypt"
 
 ports:
+  metrics:
+
   web:
     redirections:
       entryPoint:
         to: "websecure"
         scheme: "https"
         permanent: true
+
+  websecure:
+    http3:
+      enabled: true
 
 persistance:
   enabled: true
@@ -35,6 +41,9 @@ certResolvers:
     httpChallenge:
         entryPoint: "web"
     storage: "/data/acme.json"
+
+metrics:
+  prometheus: null
 EOF
     }
   }
