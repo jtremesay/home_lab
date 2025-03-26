@@ -1,0 +1,4 @@
+write-kubeconfig-mode: "0644"
+tls-san:
+  - "home.jtremesay.org"
+embedded-registry: true

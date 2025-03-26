@@ -1,0 +1,8 @@
+mirrors:
+  "*":
+configs:
+  docker.io:
+    auth:
+      username: "killruana"
+      # https://app.docker.com/settings/personal-access-tokens
+      password: "XXX"
