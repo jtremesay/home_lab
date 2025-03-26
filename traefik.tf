@@ -21,17 +21,14 @@ ports:
   metrics:
 
   web:
-    redirections:
-      entryPoint:
-        to: "websecure"
-        scheme: "https"
-        permanent: true
+    redirectTo:
+      port: "websecure"
 
   websecure:
     http3:
       enabled: true
 
-persistance:
+persistence:
   enabled: true
 
 certResolvers:
