@@ -1,3 +1,7 @@
+data "docker_registry_image" "whoami" {
+  name = "traefik/whoami"
+}
+
 resource "kubernetes_deployment_v1" "whoami" {
   metadata {
     name = "whoami"
@@ -19,7 +23,7 @@ resource "kubernetes_deployment_v1" "whoami" {
       spec {
         container {
           name  = "whoami"
-          image = "traefik/whoami"
+          image = "traefik/whoami@${data.docker_registry_image.whoami.sha256_digest}"
           port {
             container_port = 80
           }
@@ -58,12 +62,12 @@ resource "kubernetes_manifest" "whoami" {
       routes = [
         {
           kind  = "Rule"
-          match = "Host(`whoami.home.jtremesay.org`)"
+          match = join(" || ", formatlist("Host(`whomami.%s`)", local.domains))
           services = [
             {
-                kind  = "Service"
-                name  = "whoami"
-                port  = 80
+              kind = "Service"
+              name = "whoami"
+              port = 80
             }
           ]
         }
@@ -74,3 +78,4 @@ resource "kubernetes_manifest" "whoami" {
     }
   }
 }
+

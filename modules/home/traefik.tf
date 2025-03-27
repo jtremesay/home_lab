@@ -11,7 +11,7 @@ resource "kubernetes_manifest" "traefik" {
 ingressRoute:
   dashboard:
     enabled: true
-    matchRule: Host("traefik.home.jtremesay.org")
+    matchRule: ${join(" || ", formatlist("Host(`traefik.%s`)", local.domains))}
     entryPoints:
       - websecure
     tls:
