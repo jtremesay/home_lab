@@ -62,7 +62,7 @@ resource "kubernetes_manifest" "whoami" {
       routes = [
         {
           kind  = "Rule"
-          match = join(" || ", formatlist("Host(`whomami.%s`)", local.domains))
+          match = join(" || ", formatlist("Host(`whoami.%s`)", local.domains))
           services = [
             {
               kind = "Service"
