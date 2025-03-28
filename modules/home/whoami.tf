@@ -26,6 +26,7 @@ resource "kubernetes_deployment_v1" "whoami" {
           image = "traefik/whoami@${data.docker_registry_image.whoami.sha256_digest}"
           port {
             container_port = 80
+            name = "http"
           }
         }
       }
@@ -42,6 +43,8 @@ resource "kubernetes_service_v1" "whoami" {
     type = "ClusterIP"
     port {
       port = 80
+      name = "http"
+      target_port = "http"
     }
     selector = {
       app = "whoami"
@@ -67,7 +70,7 @@ resource "kubernetes_manifest" "whoami" {
             {
               kind = "Service"
               name = "whoami"
-              port = 80
+              port = "http"
             }
           ]
         }
